@@ -7,12 +7,40 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SecondView: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
+    let name: String
+    
     var body: some View {
+        Button {
+            dismiss()
+        } label: {
+            Text("Dismiss")
+        }
+
+    }
+}
+
+
+struct ContentView: View {
+    
+    @State private var isShowingSheet = false
+    
  
+    
+    var body: some View {
+        Button {
+            isShowingSheet.toggle()
            
-            Text("Time for project 7 of 100 days of SwiftUI")
-        .padding()
+        } label: {
+            Text("Show Sheet")
+        }
+        .sheet(isPresented: $isShowingSheet) {
+            SecondView(name: "Kevin")
+        }
+
     }
 }
 
@@ -21,3 +49,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+/*
+ How to make a view dismiss itself
+ */
