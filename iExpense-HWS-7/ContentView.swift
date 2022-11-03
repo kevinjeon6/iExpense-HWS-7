@@ -7,41 +7,29 @@
 
 import SwiftUI
 
-struct SecondView: View {
-    
-    @Environment(\.dismiss) var dismiss
-    
-    let name: String
-    
-    var body: some View {
-        Button {
-            dismiss()
-        } label: {
-            Text("Dismiss")
-        }
 
-    }
-}
 
 
 struct ContentView: View {
     
-    @State private var isShowingSheet = false
-    
- 
+    @AppStorage("tapCount") private var tapCount = 0
+    //tapCount is the UserDefaults key name and is case sensitive. This is where we store the data
+    //@AppStorage works like @State. When the value changes, it will reinvoke the body property so the UI reflects the new data
     
     var body: some View {
         Button {
-            isShowingSheet.toggle()
+            tapCount += 1
            
         } label: {
-            Text("Show Sheet")
-        }
-        .sheet(isPresented: $isShowingSheet) {
-            SecondView(name: "Kevin")
+            Text("Tap count: \(tapCount)")
         }
 
+        
     }
+    
+    
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -51,5 +39,13 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 /*
- How to make a view dismiss itself
+ onDelete modifier only works with ForEach. So if you want the user to delete items, you need to put them inside a ForEach
+ 
+ 
+ 
+ UserDefaults is storing small amount of data. Aim to store no more than 512 KB
+ Store things like when was the last time the user launched the app, which news story they lasat read, or other passively collected information
+  
+ 
+ SwiftUI can wrap up UserDefaults inside a property wrapper called @AppStorage
  */
