@@ -7,21 +7,33 @@
 
 import SwiftUI
 
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+    
+    
+}
 
+//Codable is a protocol for archiving and unarching data
+//JSONEncoder is used when we need to tell Swift when to archive and what to do with the data
 
 
 struct ContentView: View {
     
-    @AppStorage("tapCount") private var tapCount = 0
-    //tapCount is the UserDefaults key name and is case sensitive. This is where we store the data
-    //@AppStorage works like @State. When the value changes, it will reinvoke the body property so the UI reflects the new data
+   @State private var user = User(firstName: "Kevin", lastName: "Jeon")
     
     var body: some View {
         Button {
-            tapCount += 1
+            let encoder = JSONEncoder()
+            
+            
+            //the constant name data is a new data type. Designed to store any kind of data
+            if let data = try? encoder.encode(user) {
+                UserDefaults.standard.set(data, forKey: "UserData")
+            }
            
         } label: {
-            Text("Tap count: \(tapCount)")
+            Text("Save User")
         }
 
         
