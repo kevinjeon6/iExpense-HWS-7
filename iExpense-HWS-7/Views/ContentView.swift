@@ -20,7 +20,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 //id of \.name tells the ForEach to identify each expense item uniquely by its name
-                ForEach(expenses.items, id: \.name) { item in
+                ForEach(expenses.items) { item in
                     Text(item.name)
                 }
                 .onDelete(perform: removeItems)
