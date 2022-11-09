@@ -36,9 +36,15 @@ struct AddView: View {
                 
             }
             .navigationTitle("Add new expense")
-            
-            
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            .toolbar {
+                Button {
+                    let item = ExpenseItem(name: name, type: type, amount: amount)
+                    expenses.items.append(item)
+                } label: {
+                    Text("Save")
+                }
+
+            }
         }
     }
 }
