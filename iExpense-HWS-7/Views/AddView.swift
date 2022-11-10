@@ -11,6 +11,8 @@ struct AddView: View {
     
     //We aren't creating it but saying it exists
     @ObservedObject var expenses: ExpenseViewModel
+    @Environment(\.dismiss) var dismiss
+ 
     
     @State private var name = ""
     @State private var type = "Personal"
@@ -32,6 +34,7 @@ struct AddView: View {
                 
                 TextField("Amount", value: $amount, format: .currency(code: "USD"))
                     .keyboardType(.decimalPad)
+                    .focused($isFocused)
                 
                 
             }
@@ -40,14 +43,16 @@ struct AddView: View {
                 Button {
                     let item = ExpenseItem(name: name, type: type, amount: amount)
                     expenses.items.append(item)
+                    dismiss()
                 } label: {
                     Text("Save")
+                }
                 }
 
             }
         }
     }
-}
+
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {

@@ -22,7 +22,16 @@ struct ContentView: View {
             List {
                 //id of \.name tells the ForEach to identify each expense item uniquely by its name
                 ForEach(expenses.items) { item in
-                    Text(item.name)
+                    HStack {
+                        VStack {
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                        }
+                        Spacer()
+                        
+                        Text(item.amount, format: .currency(code: "USD"))
+                    }
                 }
                 .onDelete(perform: removeItems)
             }
